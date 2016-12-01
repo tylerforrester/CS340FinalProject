@@ -48,20 +48,20 @@ if(!$stmt->execute()){
 			<td>Name</td>
 			<td>Badges</td>
 			<td>Pokedex</td>
-		</tr>
+	    </tr>
 		<?php
-			if(!($stmt = $mysqli->prepare("SELECT bsg_people.fname, bsg_people.age, bsg_planets.name FROM bsg_people INNER JOIN bsg_planets ON bsg_people.homeworld = bsg_planets.id"))){
+			if(!($stmt = $mysqli->prepare("SELECT fname, badges, pokedex FROM trainers"))){
 				echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 			}
 
 			if(!$stmt->execute()){
 				echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 			}
-			if(!$stmt->bind_result($name, $age, $homeworld)){
+			if(!$stmt->bind_result($fname, $badges, $pokedex)){
 				echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 			}
 			while($stmt->fetch()){
-			 echo "<tr>\n<td>\n" . $name . "\n</td>\n<td>\n" . $age . "\n</td>\n<td>\n" . $homeworld . "\n</td>\n</tr>";
+			 echo "<tr>\n<td>\n" . $fname . "\n</td>\n<td>\n" . $badges . "\n</td>\n<td>\n" . $pokedex . "\n</td>\n</tr>";
 			}
 			$stmt->close();
 			?>
@@ -101,7 +101,7 @@ if(!$stmt->execute()){
 			<legend>The pokemon is already in the system. </legend>
 				<select name="Trainer">
 					<?php
-					if(!($stmt = $mysqli->prepare("SELECT id, name FROM bsg_planets"))){
+					if(!($stmt = $mysqli->prepare("SELECT poke_id, name FROM pokemons"))){
 						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 					}
 
