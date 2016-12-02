@@ -70,7 +70,7 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
 				if(!$stmt->execute()){
 					echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 				}
-				if(!$stmt->bind_result($gym_id, $name, badges)){
+				if(!$stmt->bind_result($gym_id, $name, $badges)){
 					echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 				}
 				while($stmt->fetch()){

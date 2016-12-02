@@ -42,14 +42,14 @@ else{
 </head>
 
 <body>
- <form method="post" action="updateTrainer.php">
+ <form action="updateTrainer.php">
      <label for="f">Trainer Name</label>
     <input type="text" name="fname" value="<?php echo $row["fname"]; ?>" id="f">
 
-     <p>In the: <select name="Region" value='<?php echo($row["name"]); ?>'>
+     <p>In the: <select name="name" value='<?php echo($row["name"]); ?>'>
              <?php
 
-             echo '<option value=" '. $row["name"]  . ' " selected="selected"> ' . $row["name"] . '</option>\n';
+             echo '<option value="'. $row["name"]  . '" selected="selected"> ' . $row["name"] . '</option>\n';
              if(!($stmt = $mysqli->prepare("SELECT region_id, name FROM regions"))){
                  echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
              }
@@ -61,7 +61,7 @@ else{
              }
              while($stmt->fetch()){
                  if($name != $row["name"])
-                 echo '<option value=" '. $region_id . ' "> ' . $name . '</option>\n';
+                 echo '<option value="'. $region_id . '"> ' . $name . '</option>\n';
              }
              $stmt->close();
              ?>
@@ -82,7 +82,7 @@ else{
          }
          while($stmt->fetch()){
              if($pokedex != $row["pokedex"])
-             echo '<option value=" '. $pokedex . ' "> ' . $pokedex . '</option>\n';
+             echo '<option value="'. $pokedex . '"> ' . $pokedex . '</option>\n';
          }
          $stmt->close();
          ?>
@@ -105,7 +105,7 @@ else{
          }
          while($stmt->fetch()){
              if($badges != $row["badges"])
-             echo '<option value=" '. $badges . ' "> ' . $badges . '</option>\n';
+             echo '<option value="'. $badges . '"> ' . $badges . '</option>\n';
          }
          $stmt->close();
          ?>
