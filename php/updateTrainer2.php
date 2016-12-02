@@ -26,7 +26,7 @@ $query = "SELECT fname, badges, pokedex, trainer_id, name FROM trainers INNER JO
 $stmt = $mysqli->prepare($query);
 $stmt->bind_param('i', $id);
 
-$id = $_POST["id"];
+$id = (integer)$_GET["id"];
 
 if($id < 1){
 

@@ -121,11 +121,11 @@ if(isset($_POST['u'])){
         echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
     }
     while($stmt->fetch()){
-        echo "<tr>\n<td>\n" . $fname . "\n</td>\n<td>\n" . $badges . "\n</td>\n<td>\n" . $pokedex . "\n</td><td>\n".$region."\n</td>";
+        echo "<tr>\n<td>\n" . $fname . "\n</td>\n<td>\n" . $badges . "\n</td>\n<td>\n" . $pokedex . "\n</td><td>\n".$region."\n</td><td>\n";
        /** TODO POST updateTrainer2 Broken */
-        echo "<td> <form method=\"POST\" action=\"updateTrainer2.php\">";
-        echo "<input type=\"submit\" name=\"update\" value=\"update\">";
-        echo "<input type =\"hidden\" name=\"id\" value=\". $trainerid .\"></form></td></tr>";
+        echo "<form method='get' action='updateTrainer2.php'>";
+        echo "<input type='submit' name='update' value='update'>";
+        echo "<input type ='hidden' name='id' value='$trainerid'></form></td></tr>";
 
     }
     $stmt->close();
