@@ -19,6 +19,65 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
 }
 
  **/
+
+
+/*** CURRENTLY BROKEN ****/
+/**
+
+if(isset($_POST['u'])){
+
+    var_dump($_POST);
+
+    echo "Successfully Updated";
+
+
+    if(!$mysqli || $mysqli->connect_errno){
+        echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error;
+    }
+
+    if(!($stmt = $mysqli->prepare("Select region_id FROM regions where name=?"))){
+        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+    }
+
+    if(!($stmt->bind_param("s",$_POST['name']))){
+        echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+    }
+    if(!$stmt->execute()){
+        echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+    } else {
+
+        //   echo "Updated " . $stmt->affected_rows . " rows to trainers.";
+    }
+
+    if(!$stmt->bind_result($region)){
+        echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+    }
+
+   $stmt->close();
+
+    echo($region);
+
+    if(!($stmt = $mysqli->prepare("Update trainers SET badges=?, pokedex=?, fname=?, region_id = ?WHERE id=?  "))){
+        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+    }
+
+    if(!($stmt->bind_param("iisi",$_POST['badges'],$_POST['pokedex'],$_POST['fname'], $region, $_POST['id']))){
+        echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+    }
+    if(!$stmt->execute()){
+        echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+    } else {
+        echo "Updated " . $stmt->affected_rows . " rows to trainers.";
+    }
+
+
+    $stmt->close();
+
+
+}  **/
+
+
+
 ?>
 
 
@@ -42,7 +101,7 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
     </tr>
 
     <?php
-    if(!($stmt = $mysqli->prepare("SELECT trainer_id, fname, badges, pokedex, name FROM trainers INNER JOIN regions ON regions.region_id = trainers.region_id"))){
+    if(!($stmt = $mysqli->prepare("SELECT trainer_id, fname, badges, pokedex, name FROM trainers INNER JOIN regions ON regions.region_id = trainers.region_id GROUP BY fname"))){
         echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
     }
 
@@ -54,12 +113,13 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
     }
     while($stmt->fetch()){
         echo "<tr>\n<td>\n" . $fname . "\n</td>\n<td>\n" . $badges . "\n</td>\n<td>\n" . $pokedex . "\n</td><td>\n".$region."\n</td>
-               <td><form method='get' action='updateTrainers2.php'/> <input type='submit' name='update' value='update'/> 
+               <td><form method='get' action='updateTrainer2.php'/> <input type='submit' name='update' value='update'/> 
                <input type ='hidden' name='id' value='". $trainerid ."'/></form></td></tr>";
     }
     $stmt->close();
     ?>
 </table>
+
 
 </body>
 </html>
