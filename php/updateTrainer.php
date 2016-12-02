@@ -22,9 +22,9 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
 
 
 
-if(isset($_GET['u'])){
+if(isset($_POST['u'])){
 
-    var_dump($_GET);
+  //  var_dump($_POST);
 
   //  echo "Successfully Updated";
 
@@ -34,11 +34,11 @@ if(isset($_GET['u'])){
     }
 
 
-    $name =  $_GET['name'];
-    $fname = $_GET['fname'];
-    $pokedex =$_GET['pokedex'];
-    $badges = $_GET['badges'];
-    $id = $_GET['id'];
+    $name =  $_POST['name'];
+    $fname = $_POST['fname'];
+    $pokedex =$_POST['pokedex'];
+    $badges = $_POST['badges'];
+    $id = $_POST['id'];
 
     $stmt = $mysqli->prepare("SELECT regions.region_id as id FROM regions WHERE regions.name=?");
     $stmt->bind_param('s', $name);
@@ -121,9 +121,12 @@ if(isset($_GET['u'])){
         echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
     }
     while($stmt->fetch()){
-        echo "<tr>\n<td>\n" . $fname . "\n</td>\n<td>\n" . $badges . "\n</td>\n<td>\n" . $pokedex . "\n</td><td>\n".$region."\n</td>
-               <td><form method='get' action='updateTrainer2.php'/> <input type='submit' name='update' value='update'/> 
-               <input type ='hidden' name='id' value='". $trainerid ."'/></form></td></tr>";
+        echo "<tr>\n<td>\n" . $fname . "\n</td>\n<td>\n" . $badges . "\n</td>\n<td>\n" . $pokedex . "\n</td><td>\n".$region."\n</td>";
+       /** TODO POST updateTrainer2 Broken */
+        echo "<td> <form method=\"POST\" action=\"updateTrainer2.php\">";
+        echo "<input type=\"submit\" name=\"update\" value=\"update\">";
+        echo "<input type =\"hidden\" name=\"id\" value=\". $trainerid .\"></form></td></tr>";
+
     }
     $stmt->close();
     ?>

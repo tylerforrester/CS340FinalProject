@@ -39,7 +39,7 @@ if (mysqli_connect_errno()) {
 
 
 
-$id=$_GET["gym_id"];
+$id=$_POST["gym_id"];
 $stmt = $mysqli->prepare("SELECT name FROM gyms WHERE gyms.gym_id=?");
 $stmt->bind_param('i', $id);
 
@@ -80,7 +80,7 @@ $stmt->close();
 
 <h1>Pokemon Trainer Database</h1>
 
-<form action="../PokemonDB.php">
+<form method="post" action="../PokemonDB.php">
 
 <label for="n"> Enter the gym's new name </label>
 <input type="text"  name="newnam" value="<?php echo($names[0]); ?>" id="n">		<!--Header for name section-->

@@ -19,22 +19,57 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
 }
 
  **/
-if ($result = $mysqli->query("SELECT fname, badges, pokedex, trainer_id, name FROM trainers INNER JOIN  regions ON regions.region_id = trainers.region_id WHERE trainer_id = 5 GROUP BY fname")) {
-    $row = $result->fetch_array();
 
 
-    $result->close();
+$query = "SELECT fname, badges, pokedex, trainer_id, name FROM trainers INNER JOIN  regions ON regions.region_id = trainers.region_id WHERE trainer_id = ? GROUP BY fname";
+
+$stmt = $mysqli->prepare($query);
+$stmt->bind_param('i', $id);
+
+$id = $_POST["id"];
+
+if($id < 1){
+
+$id = 1;
+
 }
+
+/* execute prepared statement */
+$stmt->execute();
+$stmt->bind_result($fname, $badges, $pokedex, $trainer_id, $name);
+while($stmt->fetch()){
+
+    $row = array(
+            "fname" => $fname,
+            "badges" => $badges,
+            "pokedex" => $pokedex,
+            "trainer_id" => $trainer_id,
+            "name" => $name
+
+
+    );
+
+
+}
+
+/* close statement and connection */
+$stmt->close();
+
+
+
+
+
+/*
 else{
 
    echo ("Please Supply a Trainer Id");
     exit;
-}
+} */
 
 ?>
 
 
-<!doctype html>
+<!doctype html><html>
 
 <head>
         <title>Updating Trainer</title>
@@ -42,7 +77,7 @@ else{
 </head>
 
 <body>
- <form action="updateTrainer.php">
+ <form method="post" action="updateTrainer.php">
      <label for="f">Trainer Name</label>
     <input type="text" name="fname" value="<?php echo $row["fname"]; ?>" id="f">
 
@@ -71,7 +106,7 @@ else{
          <?php
 
          echo '<option value=" '. $row["pokedex"]  . ' " selected="selected"> ' . $row["pokedex"] . '</option>\n';
-         if(!($stmt = $mysqli->prepare("SELECT DISTINCT pokedex FROM trainers ORDER BY pokedex ASC"))){
+         if(!($stmt = $mysqli->prepare("SELECT DISTINCT pokedex FROM trainers ORDER BY pokedex+0 ASC"))){
              echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
          }
          if(!$stmt->execute()){
@@ -120,6 +155,7 @@ else{
 </body>
 
 
+</html>
 
 
 
