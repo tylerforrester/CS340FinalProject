@@ -20,6 +20,30 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
 }
 
  **/
+
+if(isset($_GET['newnam'])) {
+
+
+    $query = "UPDATE gyms SET name=? WHERE gym_id=?";
+
+
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param('si', $name, $id);
+
+    $name = $_GET["newnam"]. " Badge";
+    $id = $_GET["id"];
+
+    /* execute prepared statement */
+    $stmt->execute();
+
+    printf("Congratulations, you've just renamed gym ".$id.", ".$name."!!");
+
+
+    /* close statement and connection */
+    $stmt->close();
+
+}
+
 ?>
 
 
@@ -224,6 +248,34 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
 	</form>
   <!-----------Update Trainer Info-------------->
     <form action="php/updateTrainer.php"> <input type="submit" name="update" value="Update Trainer"</input></form>
+  <!------ Rename your Gym --->
+
+    <form method="get" action="php/updateGymName2.php">
+
+        <fieldset>
+
+            <legend>Rename Gym</legend>
+            <p> Select Gym <select name="gym_id">
+                    <!---->
+                    <?php
+                    if(!($stmt = $mysqli->prepare("SELECT gym_id, name FROM gyms"))){
+                        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+                    }
+                    if(!$stmt->execute()){
+                        echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                    }
+                    if(!$stmt->bind_result($gym_id, $name)){
+                        echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                    }
+                    while($stmt->fetch()){
+                        echo '<option value="'. $gym_id . '"> ' . $name . '</option>\n';
+                    }
+                    $stmt->close();
+                    ?>
+                </select> Gym </p>
+            <input type="submit"/>
+        </fieldset>
+    </form>
 
 </body>
 </html>

@@ -21,60 +21,63 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
  **/
 
 
-/*** CURRENTLY BROKEN ****/
-/**
 
-if(isset($_POST['u'])){
+if(isset($_GET['u'])){
 
-    var_dump($_POST);
+    var_dump($_GET);
 
-    echo "Successfully Updated";
+  //  echo "Successfully Updated";
 
 
     if(!$mysqli || $mysqli->connect_errno){
         echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error;
     }
 
-    if(!($stmt = $mysqli->prepare("Select region_id FROM regions where name=?"))){
-        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+
+    $name =  $_GET['name'];
+    $fname = $_GET['fname'];
+    $pokedex =$_GET['pokedex'];
+    $badges = $_GET['badges'];
+    $id = $_GET['id'];
+
+    $stmt = $mysqli->prepare("SELECT regions.region_id as id FROM regions WHERE regions.name=?");
+    $stmt->bind_param('s', $name);
+
+    /* execute prepared statement */
+    $stmt->execute();
+    $stmt->bind_result($id);
+
+    while($stmt->fetch()){
+
+        $ids=array($id);
+        echo($id."\n");
+
     }
 
-    if(!($stmt->bind_param("s",$_POST['name']))){
-        echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
-    }
-    if(!$stmt->execute()){
-        echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
-    } else {
-
-        //   echo "Updated " . $stmt->affected_rows . " rows to trainers.";
-    }
-
-    if(!$stmt->bind_result($region)){
-        echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-    }
-
-   $stmt->close();
-
-    echo($region);
-
-    if(!($stmt = $mysqli->prepare("Update trainers SET badges=?, pokedex=?, fname=?, region_id = ?WHERE id=?  "))){
-        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-    }
-
-    if(!($stmt->bind_param("iisi",$_POST['badges'],$_POST['pokedex'],$_POST['fname'], $region, $_POST['id']))){
-        echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
-    }
-    if(!$stmt->execute()){
-        echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
-    } else {
-        echo "Updated " . $stmt->affected_rows . " rows to trainers.";
-    }
-
-
+    /* close statement and connection */
     $stmt->close();
 
 
-}  **/
+    $query = "UPDATE trainers SET fname=?, pokedex=?, badges=?, region_id =? WHERE trainer_id=?";
+
+
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param('siiii', $fname, $pokedex, $badges, $region_id, $id);
+
+
+        $region_id = $ids[0];
+
+    /* execute prepared statement */
+    $stmt->execute();
+
+    printf("\n%d Row Updated.\n", $stmt->affected_rows);
+
+
+    /* close statement and connection */
+    $stmt->close();
+
+
+}  
 
 
 
@@ -84,6 +87,12 @@ if(isset($_POST['u'])){
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
+
+<head>
+
+    <title>Trainer List</title>
+
+</head>
 <body>
 
 <!-- Select Pokemon from a List  -->
