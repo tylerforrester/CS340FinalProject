@@ -222,5 +222,8 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
 		<input type="submit" value="Select"/>
 		</fieldset>
 	</form>
+  <!-----------Update Trainer Info-------------->
+    <form action="php/updateTrainer.php"> <input type="submit" name="update" value="Update Trainer"</input></form>
+
 </body>
 </html>
