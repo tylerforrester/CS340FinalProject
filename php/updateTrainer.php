@@ -1,4 +1,6 @@
 <?php
+
+
 ini_set('display_errors', 'On');
 
 $host = 'mysql.eecs.oregonstate.edu';
@@ -22,9 +24,9 @@ echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error
 
 
 
-if(isset($_POST['u'])){
+if(isset($_GET['u'])){
 
-  //  var_dump($_POST);
+ // var_dump($_GET);
 
   //  echo "Successfully Updated";
 
@@ -34,23 +36,25 @@ if(isset($_POST['u'])){
     }
 
 
-    $name =  $_POST['name'];
-    $fname = $_POST['fname'];
-    $pokedex =$_POST['pokedex'];
-    $badges = $_POST['badges'];
-    $id = $_POST['id'];
+    $name =  $_GET['name'];
+    $fname = $_GET['fname'];
+    $pokedex =$_GET['pokedex'];
+    $badges = $_GET['badges'];
+    $id = $_GET['id'];
+
 
     $stmt = $mysqli->prepare("SELECT regions.region_id as id FROM regions WHERE regions.name=?");
     $stmt->bind_param('s', $name);
 
     /* execute prepared statement */
     $stmt->execute();
-    $stmt->bind_result($id);
+    $stmt->bind_result($rid);
 
     while($stmt->fetch()){
 
-        $ids=array($id);
-        echo($id."\n");
+        $ids=array($rid);
+
+
 
     }
 
@@ -70,7 +74,7 @@ if(isset($_POST['u'])){
     /* execute prepared statement */
     $stmt->execute();
 
-    printf("\n%d Row Updated.\n", $stmt->affected_rows);
+    printf("Trainer Updated Whose Name Is ".$fname);
 
 
     /* close statement and connection */

@@ -26,7 +26,7 @@ $query = "SELECT fname, badges, pokedex, trainer_id, name FROM trainers INNER JO
 $stmt = $mysqli->prepare($query);
 $stmt->bind_param('i', $id);
 
-$id = (integer)$_GET["id"];
+$id = $_GET["id"];
 
 if($id < 1){
 
@@ -45,8 +45,6 @@ while($stmt->fetch()){
             "pokedex" => $pokedex,
             "trainer_id" => $trainer_id,
             "name" => $name
-
-
     );
 
 
@@ -73,7 +71,7 @@ $stmt->close();
 <br>
 <br>
 <div class="uform">
- <form method="post" action="updateTrainer.php">
+ <form method="get" action="updateTrainer.php">
      <label for="f">Trainer Name</label>
     <input type="text" name="fname" value="<?php echo $row["fname"]; ?>" id="f">
 
@@ -101,7 +99,7 @@ $stmt->close();
      <p> Pokedex <select name="pokedex" value="<?php echo($row["pokedex"]); ?>">
          <?php
 
-         echo '<option value=" '. $row["pokedex"]  . ' " selected="selected"> ' . $row["pokedex"] . '</option>\n';
+         echo '<option value="'. $row["pokedex"]  . '" selected="selected"> ' . $row["pokedex"] . '</option>\n';
          if(!($stmt = $mysqli->prepare("SELECT DISTINCT pokedex FROM trainers ORDER BY pokedex+0 ASC"))){
              echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
          }
@@ -123,7 +121,7 @@ $stmt->close();
 
 
          <?php
-         echo '<option value=" '. $row["badges"]  . ' " selected="selected"> ' . $row["badges"] . '</option>\n';
+         echo '<option value="'. $row["badges"]  . '" selected="selected"> ' . $row["badges"] . '</option>\n';
 
          if(!($stmt = $mysqli->prepare("SELECT DISTINCT badges FROM gyms"))){
              echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
@@ -136,7 +134,7 @@ $stmt->close();
          }
          while($stmt->fetch()){
              if($badges != $row["badges"])
-             echo '<option value="'. $badges . '"> ' . $badges . '</option>\n';
+             echo '<option value='.$badges.'> ' . $badges . '</option>\n';
          }
          $stmt->close();
          ?>
