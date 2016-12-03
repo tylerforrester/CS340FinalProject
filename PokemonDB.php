@@ -107,14 +107,12 @@ if(isset($_GET['newnam'])) {
 		<input type="submit" value="Register"/>
 	</form>
 	<!-------Selecting a pre-existing trainer in the DB------->
-	<form method="post" action="php/filter.php">
+
+
+    <form method="post" action="php/filter.php">
 		<fieldset>
 			<legend>No, I'm already in the system. </legend>
-            <!-----------Update Trainer Info-------------->
-            <p>
-                Need to change some information about your trainer?
-            <form action="php/updateTrainer.php"> <input type="submit" name="update" value="Update Trainer"</input></form>                                                                                          </p>
-            </p>
+
                   <select name="Trainer">
 					<?php
 					if(!($stmt = $mysqli->prepare("SELECT trainer_id, fname FROM trainers"))){
@@ -137,8 +135,12 @@ if(isset($_GET['newnam'])) {
 		<!--Should take us to the Trainer info page-->
 		<input type="submit" value="Select" />
 	</form>
-	
-	<hr>
+<!-----------Update Trainer Info-------------->
+<p>
+    Need to change some information about your trainer?
+<form action="php/updateTrainer.php"> <input type="submit" name="update" value="Update Trainer"</input></form>                                                                                          </p>
+</p>
+
 	<!--------------Section for non-trainer addition-------------->
 	<h3 style="color:#FF0000" > Not a trainer? </h3>
 	
