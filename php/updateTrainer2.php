@@ -56,32 +56,28 @@ while($stmt->fetch()){
 $stmt->close();
 
 
-
-
-
-/*
-else{
-
-   echo ("Please Supply a Trainer Id");
-    exit;
-} */
-
 ?>
 
 
 <!doctype html><html>
 
 <head>
+    <link rel="stylesheet" type="text/css" href="../css/tables.css">
         <title>Updating Trainer</title>
 
 </head>
 
 <body>
+<h1> Please Update the Trainer's Information.</h1>
+<br>
+<br>
+<br>
+<div class="uform">
  <form method="post" action="updateTrainer.php">
      <label for="f">Trainer Name</label>
     <input type="text" name="fname" value="<?php echo $row["fname"]; ?>" id="f">
 
-     <p>In the: <select name="name" value='<?php echo($row["name"]); ?>'>
+     <p> Region <select name="name" value='<?php echo($row["name"]); ?>'>
              <?php
 
              echo '<option value="'. $row["name"]  . '" selected="selected"> ' . $row["name"] . '</option>\n';
@@ -100,9 +96,9 @@ else{
              }
              $stmt->close();
              ?>
-         </select> Region</p>
+         </select></p>
 
-     <p>In the: <select name="pokedex" value="<?php echo($row["pokedex"]); ?>">
+     <p> Pokedex <select name="pokedex" value="<?php echo($row["pokedex"]); ?>">
          <?php
 
          echo '<option value=" '. $row["pokedex"]  . ' " selected="selected"> ' . $row["pokedex"] . '</option>\n';
@@ -121,9 +117,9 @@ else{
          }
          $stmt->close();
          ?>
-         </select> Pokedex</p>
+         </select> </p>
 
-     <p>In the: <select name="badges" value"<?php echo($row["badges"]); ?>">
+     <p>Badges <select name="badges" value"<?php echo($row["badges"]); ?>">
 
 
          <?php
@@ -144,14 +140,14 @@ else{
          }
          $stmt->close();
          ?>
-         </select> Badges</p>
+         </select> </p>
 
      <input type="hidden" name="id" value="<?php echo $row["trainer_id"]; ?>">
      <input type="submit" name="u" value="Submit to Update">
 
 
  </form>
-
+   </div>
 </body>
 
 

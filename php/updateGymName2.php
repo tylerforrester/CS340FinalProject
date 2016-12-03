@@ -69,8 +69,7 @@ $stmt->close();
 <head>
 
     <title> Poke Gym Title </title>
-
-
+     <link rel="stylesheet" type="text/css" href="../css/tables.css">
 </head>
 
 
@@ -80,12 +79,12 @@ $stmt->close();
 
 <h1>Pokemon Trainer Database</h1>
 
-<form method="get" action="../PokemonDB.php">
+<form method="get" action="../PokemonDB.php" class="uform">
 
 <label for="n"> Enter the gym's new name </label>
 <input type="text"  name="newnam" value="<?php echo($names[0]); ?>" id="n">		<!--Header for name section-->
 <input type="hidden" name="id" value="<?php echo($id); ?>" >
-<input type="submit"/>
+<input type="submit" value="Update"/>
 
 </form>
 

@@ -91,16 +91,16 @@ if(isset($_POST['u'])){
 <head>
 
     <title>Trainer List</title>
-
+    <link rel="stylesheet" type="text/css" href="../css/tables.css">
 </head>
 <body>
 
 <!-- Select Pokemon from a List  -->
-
+<div class="table">
 <table>
-    <tr>
-        <td>List of Trainers</td>
-    </tr>
+    <caption>
+        List of Trainers
+    </caption>
     <tr>
         <th>Name</th>
         <th>Badges</th>
@@ -131,7 +131,9 @@ if(isset($_POST['u'])){
     $stmt->close();
     ?>
 </table>
-
+</div>
 
 </body>
 </html>
+
+<?php $mysqli->close(); ?>

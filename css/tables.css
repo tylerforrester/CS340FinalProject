@@ -1,0 +1,64 @@
+
+
+h1{
+    font-family: Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    font-size: 4rem;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    text-align: center;
+    color: #98023C;
+}
+caption{
+
+    text-align: center;
+    font-size: 2.25rem;
+    color: #98023C;
+    font-family: fantasy;
+}
+
+.table{
+    width:48%;  float: left; display: block;
+}
+
+table {
+    color: #EEEEEE; /* Lighten up font color */
+    font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+    width: 90%;
+    border-collapse:
+            collapse; border-spacing: 0;
+}
+
+td, th { border: 1.5px solid #CCC; height: 45px;  } /* Make cells a bit taller */
+
+th {
+    background: #77DDDD; /* Light grey background */
+    font-weight: bold; /* Make sure they're bold */
+}
+
+td {
+    background: #FAFAFA; /* Lighter grey background */
+    text-align: center;
+    color: #555555;
+}
+
+.uform {
+    width:80%; margin:0 auto;
+    background: #FFF5EE;
+    text-align: center;
+}
+
+
+.uform p, .uform label, .uform input, .uform option{
+font-size: 1.6rem;
+font-family: fantasy;
+color: #98023C;
+
+}
+
+.uform input, .uform option{
+    font-size: 1.6rem;
+    font-family: fantasy;
+    color: #222222;
+
+}

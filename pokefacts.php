@@ -81,19 +81,19 @@ while($stmt->fetch()){
 <head>
 
     <title>Pokefacts!</title>
-
+    <link rel="stylesheet" type="text/css" href="css/tables.css">
 </head>
 <body>
 
 <!-- Select Pokemon from a List  -->
-
-
+<h1>Interesting Pokefacts!</h1>
+<div id = "1" class="table">
 <table>
+
+   <caption style='text-align: center' > Number of Pokemon in Each Region  </caption>
+
   <thead>
-    <tr>
-        <td>Number of Pokemon in Each Region</td>
-    </tr>
-    <tr>
+     <tr>
 
         <th>Region</th>
         <th>Number</th>
@@ -112,19 +112,20 @@ while($stmt->fetch()){
         echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
     }
     while($stmt->fetch()){
-        echo "<tr>\n<td>\n" . $region . "\n</td>\n<td>\n" . $number . "\n</td>";
+        echo "<tr>\n<td style='text-align: center'>\n" . $region . "\n</td>\n<td>\n" . $number . "\n</td>";
 
     }
     $stmt->close();
     ?>
     </tbody>
 </table>
+</div>
 
+<div id="2" class="table">
 <table>
+    <caption style='text-align: center' > Top 3 Pokemon Trainers by Pokemon owned </caption>
     <thead>
-    <tr>
-        <td>Top 3 Pokemon Trainers by Pokemon owned</td>
-    </tr>
+
     <tr>
 
         <th>Trainer</th>
@@ -144,23 +145,22 @@ while($stmt->fetch()){
         echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
     }
     while($stmt->fetch()){
-        echo "<tr>\n<td>\n" . $trainer . "\n</td>\n<td>\n" . $number . "\n</td>";
+        echo "<tr>\n<td style='text-align: center'>\n" . $trainer . "\n</td>\n<td>\n" . $number . "\n</td>";
 
     }
     $stmt->close();
     ?>
     </tbody>
 </table>
+</div>
 
+<div id="3" class="table">
 <table>
+    <caption style='text-align: center' > Top Region for Unnamed Pokemon </caption>
     <thead>
     <tr>
-        <td>Top Region for Unnamed Pokemon</td>
-    </tr>
-    <tr>
-
         <th>Region</th>
-        <th>Most Unnamed Pokemon</th>
+        <th>Pokemon</th>
     </tr>
     </thead>
     <tbody>
@@ -176,7 +176,7 @@ while($stmt->fetch()){
         echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
     }
     while($stmt->fetch()){
-        echo "<tr>\n<td>\n" . $region . "\n</td>\n<td>\n" . $number . "\n</td>";
+        echo "<tr>\n<td style='text-align: center'>\n" . $region . "\n</td>\n<td>\n" . $number . "\n</td>";
 
     }
     $stmt->close();
@@ -184,12 +184,13 @@ while($stmt->fetch()){
     </tbody>
 </table>
 
+</div>
+
+<div id="4" class ="table">
 
 <table>
+    <caption style='text-align: center' > Biggest Most Experienced Pokemon</caption>
     <thead>
-    <tr>
-        <td>Biggest Most Experienced Pokemon</td>
-    </tr>
     <tr>
 
         <th>Trainer</th>
@@ -210,7 +211,7 @@ while($stmt->fetch()){
         echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
     }
     while($stmt->fetch()){
-        echo "<tr><td>\n" . $trainer. "\n</td><td>\n" . $type . "\n</td><td>\n" . $experience. "\n</td>";
+        echo "<tr><td style='text-align: center'>\n" . $trainer. "\n</td><td>\n" . $type . "\n</td><td>\n" . $experience. "\n</td>";
 
     }
     $stmt->close();
@@ -218,7 +219,7 @@ while($stmt->fetch()){
     </tbody>
 </table>
 
-
+</div>
 
 
 

@@ -51,11 +51,14 @@ if(isset($_GET['newnam'])) {
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <title>Pokemon Trainer Database</title>
-<body>
+<>
 	<h1> Pokemon Database</h1>
 	<hr>
 	<h2> Welcome to the Pokemon Trainer Database. </h2>
-	<h3 style="color:#FF0000" > Are you by chance a new Pokemon Trainer? </h3>
+
+<a href="pokefacts.php"> See our new Interesting Poke Fact Page! </a>
+<br>
+<h3 style="color:#FF0000" > Are you by chance a new Pokemon Trainer? </h3>
 	<!-------Adding a new trainer to the DB------->
 	<form method="post" action="php/addTrainer.php">
 		<fieldset>
@@ -107,7 +110,12 @@ if(isset($_GET['newnam'])) {
 	<form method="post" action="php/filter.php">
 		<fieldset>
 			<legend>No, I'm already in the system. </legend>
-				<select name="Trainer">
+            <!-----------Update Trainer Info-------------->
+            <p>
+                Need to change some information about your trainer?
+            <form action="php/updateTrainer.php"> <input type="submit" name="update" value="Update Trainer"</input></form>                                                                                          </p>
+            </p>
+                  <select name="Trainer">
 					<?php
 					if(!($stmt = $mysqli->prepare("SELECT trainer_id, fname FROM trainers"))){
 						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
@@ -209,7 +217,36 @@ if(isset($_GET['newnam'])) {
 			</select> Region</p>
 		<input type="submit"/>
 		</fieldset>
-	</form>	
+	</form>
+
+<!------ Rename your Gym --->
+
+<form method="get" action="php/updateGymName2.php">
+
+    <fieldset>
+
+        <legend> Bored with the Gym Names. Change Them!</legend>
+        <p> Select Gym <select name="gym_id">
+                <!---->
+                <?php
+                if(!($stmt = $mysqli->prepare("SELECT gym_id, name FROM gyms"))){
+                    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+                }
+                if(!$stmt->execute()){
+                    echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                }
+                if(!$stmt->bind_result($gym_id, $name)){
+                    echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                }
+                while($stmt->fetch()){
+                    echo '<option value="'. $gym_id . '"> ' . $name . '</option>\n';
+                }
+                $stmt->close();
+                ?>
+            </select> Gym </p>
+        <input type="submit" value="Change It!"/>
+    </fieldset>
+</form>
 	
 	<!-------Creating a new region------->
 	<form method="post" action="php/addRegion.php">
@@ -246,36 +283,8 @@ if(isset($_GET['newnam'])) {
 		<input type="submit" value="Select"/>
 		</fieldset>
 	</form>
-  <!-----------Update Trainer Info-------------->
-    <form action="php/updateTrainer.php"> <input type="submit" name="update" value="Update Trainer"</input></form>
-  <!------ Rename your Gym --->
 
-    <form method="get" action="php/updateGymName2.php">
 
-        <fieldset>
-
-            <legend>Rename Gym</legend>
-            <p> Select Gym <select name="gym_id">
-                    <!---->
-                    <?php
-                    if(!($stmt = $mysqli->prepare("SELECT gym_id, name FROM gyms"))){
-                        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-                    }
-                    if(!$stmt->execute()){
-                        echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-                    }
-                    if(!$stmt->bind_result($gym_id, $name)){
-                        echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-                    }
-                    while($stmt->fetch()){
-                        echo '<option value="'. $gym_id . '"> ' . $name . '</option>\n';
-                    }
-                    $stmt->close();
-                    ?>
-                </select> Gym </p>
-            <input type="submit"/>
-        </fieldset>
-    </form>
 
 </body>
 </html>
