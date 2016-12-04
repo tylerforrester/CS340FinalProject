@@ -238,16 +238,5 @@ if(isset($_GET['newnam'])) {
 		<input type="submit"/>
 		</fieldset>
 	</form>
-	
-	<!--------------Filtering through DB-------------->
-	<form method="post" action="php/addRegion.php">
-		<fieldset>
-			<legend>Something is our system is incorrect?</legend>
-			<!-------Unsure how to best set up this section------->
-			Some text and forms...
-		<input type="submit" value="Select"/>
-		</fieldset>
-	</form>
-
 </body>
 </html>
