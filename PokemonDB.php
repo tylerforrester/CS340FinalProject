@@ -185,7 +185,6 @@ if(isset($_GET['newnam'])) {
 	</form>
 
 <!------ Rename your Gym --->
-
 <form method="get" action="php/updateGymName2.php">
 
     <fieldset>
@@ -218,19 +217,20 @@ if(isset($_GET['newnam'])) {
 		<fieldset>
 			<legend>A region just joined the International Trainer Consortium?</legend>
 			<p>Name: <input type="text" name="Name" /></p>
-			<p>Adjacent to the: <select name="Region">
+			<p>Adjacent to the: <select name="Adjacent">
+                <option value="">None</option>
 				<?php
-				if(!($stmt = $mysqli->prepare("SELECT region_id, name FROM regions"))){
+				if(!($stmt = $mysqli->prepare("SELECT name, region_id FROM regions"))){
 					echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 				}
 				if(!$stmt->execute()){
 					echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 				}
-				if(!$stmt->bind_result($region_id, $name)){
+				if(!$stmt->bind_result($name, $region_id)){
 					echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 				}
 				while($stmt->fetch()){
-					echo '<option value=" '. $region_id . ' "> ' . $name . '</option>\n';
+					echo '<option value=" '. $name . ' "> ' . $name . '</option>\n';
 				}
 				$stmt->close();
 				?>
@@ -248,8 +248,6 @@ if(isset($_GET['newnam'])) {
 		<input type="submit" value="Select"/>
 		</fieldset>
 	</form>
-
-
 
 </body>
 </html>

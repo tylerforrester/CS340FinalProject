@@ -24,12 +24,16 @@ echo "arrived\n";
 if(!($stmt = $mysqli->prepare("INSERT INTO gyms(name,badges,pokeType,r_id) VALUES (?,?,?,?)"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
-if(!($stmt->bind_param("ssii",$_POST['Name'],$_POST['Badges'],$_POST['Types'],$_POST['Region']))){
+if(!($stmt->bind_param("sssi",$_POST['Name'],$_POST['Badges'],$_POST['Types'],$_POST['Region']))){
 	echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 }
 if(!$stmt->execute()){
 	echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-	echo "Added " . $stmt->affected_rows . " rows to pokemon.";
+	echo " " . $stmt->affected_rows . " gym was created.";
 }
 ?>
+<!--Take us back to the main page-->
+<form action="../PokemonDB.php">
+    <input type="submit" value="Return to Main Menu" />
+</form>
