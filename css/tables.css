@@ -62,3 +62,8 @@ color: #98023C;
     color: #222222;
 
 }
+
+fieldset {
+    background-color: aliceblue;
+    padding: 30px;
+}
