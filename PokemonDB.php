@@ -1,6 +1,6 @@
 <?php
 	ini_set('display_errors', 'On');
-	/**
+
 	$host = 'mysql.eecs.oregonstate.edu';
 	$user = 'cs290_forrestt';
 	$password = '5955';
@@ -10,13 +10,13 @@
 	if($mysqli->connect_errno){
 		echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error;
 	}
-	 **/
+/**
 	//Connects to the database
 	$mysqli = new mysqli("oniddb.cws.oregonstate.edu","louiet-db","9TmtE8qLdKO48ggx","louiet-db");
 	if(!$mysqli || $mysqli->connect_errno){
 		echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error;
 	}
-
+	 **/
 	if(isset($_GET['newnam'])) {
 		$query = "UPDATE gyms SET name=? WHERE gym_id=?";
 
@@ -205,6 +205,21 @@
 				<input type="submit" value="Change It!"/>
 			</fieldset>
 		</form>
+		<!------ See a complete list of gyms ----->
+
+
+		<form action="php/gymList.php">
+			<fieldset>
+
+		    	<legend>Checkout our Gyms!</legend>
+
+			    <input type="submit" value="Complete List of Gyms">
+
+			</fieldset>
+		</form>
+
+
+
 		<!-------Create a New Region------->
 		<form method="post" action="php/addRegion.php">
 			<fieldset>
