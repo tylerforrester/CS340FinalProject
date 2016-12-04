@@ -45,3 +45,7 @@ if(!$stmt->execute()){
     echo "and " . $stmt->affected_rows . " linked to region.";
 }
 ?>
+<!--Take us back to the main page-->
+<form action="../PokemonDB.php">
+    <input type="submit" value="Return to Main Menu" />
+</form>

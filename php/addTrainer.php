@@ -41,11 +41,11 @@ if(!($stmt->bind_param("ii",$_POST['Gym'],$strainer))){
 if(!$stmt->execute()){
     echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-    echo "and " . $stmt->affected_rows . " added to gym.";
+    echo " and " . $stmt->affected_rows . " added to gym.";
 }
 ?>
 <!-------Form to add new Pokemon------->
-<form method="post" action="php/addPokemon.php">
+<form method="post" action="addPokemon.php">
     <fieldset>
         <legend>You caught a wild Pokemon? </legend>
         <p>Name: <input type="text" name="Name" /></p>
@@ -53,6 +53,7 @@ if(!$stmt->execute()){
         <p>Evolution: <input type="text" name="Evolution" /></p>
         <p>Types: <input type="text" name="Types" /></p>
         <p>Experience: <input type="number" min="0" name="Exp" /></p>
+        <input type="hidden" name="Trainer" value= "<?php echo $strainer; ?>"/>
         <p>From the: <select name="Region">
                 <?php
                 if(!($stmt = $mysqli->prepare("SELECT region_id, name FROM regions"))){
@@ -77,6 +78,7 @@ if(!$stmt->execute()){
 <form method="post" action="linkPoke.php">
     <fieldset>
         <legend>The pokemon is already in the system. </legend>
+        <input type="hidden" name="Trainer" value= "<?php echo $strainer; ?>"/>
         <select name="Pokemon">
             <?php
             if(!($stmt = $mysqli->prepare("SELECT poke_id, name FROM pokemons"))){

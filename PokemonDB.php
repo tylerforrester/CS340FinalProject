@@ -92,19 +92,17 @@ if(isset($_GET['newnam'])) {
 				$stmt->close();
 				?>
             </select>
+            <p><input type="submit" value="Register"/></p>
 		</fieldset>
 		<!--Should take us to the trainer page-->
-		<input type="submit" value="Register"/>
 	</form>
-    <!-----------Update Trainer Info-------------->
+    <!-----------Update Trainer Info, Should take us to the Trainer info page-------------->
     <form action="php/updateTrainer.php">
 		<fieldset>
 			<legend>No, I'm already in the system. </legend>
             <h4>Need to change some information about your trainer?</h4>
             <input type="submit" name="update" value="Update Trainer"</input>
 		</fieldset>
-		<!--Should take us to the Trainer info page-->
-		<input type="submit" value="Select" />
 	</form>
 	<!--------------Section for non-trainer addition-------------->
 	<h3 style="color:#FF0000" > Not a trainer? </h3>
