@@ -74,30 +74,6 @@ if(!$stmt->execute()){
         <input type="submit"/>
     </fieldset>
 </form>
-<!-------Link a previously added Pokemon------->
-<form method="post" action="linkPoke.php">
-    <fieldset>
-        <legend>The pokemon is already in the system. </legend>
-        <input type="hidden" name="Trainer" value= "<?php echo $strainer; ?>"/>
-        <select name="Pokemon">
-            <?php
-            if(!($stmt = $mysqli->prepare("SELECT poke_id, name FROM pokemons"))){
-                echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-            }
-
-            if(!$stmt->execute()){
-                echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-            }
-            if(!$stmt->bind_result($id, $pname)){
-                echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-            }
-            while($stmt->fetch()){
-                echo '<option value=" '. $id . ' "> ' . $pname . '</option>\n';
-            }
-            $stmt->close();
-            ?>
-        </select>
-    </fieldset>
     <!--Should take us to the Trainer info page-->
     <input type="submit" value="Select" />
 </form>
