@@ -1,7 +1,7 @@
 <?php
 
 ini_set('display_errors', 'On');
-
+/**
 $host = 'mysql.eecs.oregonstate.edu';
 $user = 'cs290_forrestt';
 $password = '5955';
@@ -12,20 +12,15 @@ if($mysqli->connect_errno){
 	echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
 
-/**
+ **/
 //Connects to the database
 $mysqli = new mysqli("oniddb.cws.oregonstate.edu","louiet-db","9TmtE8qLdKO48ggx","louiet-db");
 if(!$mysqli || $mysqli->connect_errno){
 echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
 
- **/
-
 if(isset($_GET['newnam'])) {
-
-
     $query = "UPDATE gyms SET name=? WHERE gym_id=?";
-
 
     $stmt = $mysqli->prepare($query);
     $stmt->bind_param('si', $name, $id);
@@ -37,21 +32,16 @@ if(isset($_GET['newnam'])) {
     $stmt->execute();
 
     printf("Congratulations, you've just renamed gym ".$id.", ".$name."!!");
-
-
     /* close statement and connection */
     $stmt->close();
-
 }
-
 ?>
-
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
+<link rel="stylesheet" type="text/css" href="css/tables.css">
 <title>Pokemon Trainer Database</title>
-<>
 	<h1> Pokemon Database</h1>
 	<hr>
 	<h2> Welcome to the Pokemon Trainer Database. </h2>
@@ -66,6 +56,24 @@ if(isset($_GET['newnam'])) {
 			<p>Name: <input type="text" name="Name" /></p>
 			<p>Obtained: <input type="number" min="0" name="Badge" /> badges</p>
 			<p>Recorded: <input type="number" min="0" name="Pokedex" /> pokemon</p>
+            <p>Currently at the: <select name="Gym">
+                <?php
+                if(!($stmt = $mysqli->prepare("SELECT gym_id, name FROM gyms"))){
+                    echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+                }
+
+                if(!$stmt->execute()){
+                    echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                }
+                if(!$stmt->bind_result($gym_id, $name)){
+                    echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+                }
+                while($stmt->fetch()){
+                    echo '<option value=" '. $gym_id . ' "> ' . $name . '</option>\n';
+                }
+                $stmt->close();
+                ?>
+            </select>
 			<p>From the: <select name="Region">
 				<?php
 				if(!($stmt = $mysqli->prepare("SELECT region_id, name FROM regions"))){
@@ -83,69 +91,26 @@ if(isset($_GET['newnam'])) {
 				}
 				$stmt->close();
 				?>
-			</select></p>
-			<p>Currently at: <select name="Gym">
-				<?php
-				if(!($stmt = $mysqli->prepare("SELECT gym_id, name, badges FROM gyms"))){
-					echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-				}
-
-				if(!$stmt->execute()){
-					echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-				}
-				if(!$stmt->bind_result($gym_id, $name, $badges)){
-					echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-				}
-				while($stmt->fetch()){
-					echo '<option value=" '. $gym_id . ' "> ' . $name .'-'. $badges .' </option>\n';
-				}
-				$stmt->close();
-				?>
-			</select></p>
+            </select>
 		</fieldset>
 		<!--Should take us to the trainer page-->
 		<input type="submit" value="Register"/>
 	</form>
-	<!-------Selecting a pre-existing trainer in the DB------->
-
-
-    <form method="post" action="php/filter.php">
+    <!-----------Update Trainer Info-------------->
+    <form action="php/updateTrainer.php">
 		<fieldset>
 			<legend>No, I'm already in the system. </legend>
-
-                  <select name="Trainer">
-					<?php
-					if(!($stmt = $mysqli->prepare("SELECT trainer_id, fname FROM trainers"))){
-						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-					}
-
-					if(!$stmt->execute()){
-						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-					}
-					if(!$stmt->bind_result($id, $pname)){
-						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-					}
-					while($stmt->fetch()){
-					 echo '<option value=" '. $id . ' "> ' . $pname . '</option>\n';
-					}
-					$stmt->close();
-					?>
-				</select>
+            <h4>Need to change some information about your trainer?</h4>
+            <input type="submit" name="update" value="Update Trainer"</input>
 		</fieldset>
 		<!--Should take us to the Trainer info page-->
 		<input type="submit" value="Select" />
 	</form>
-<!-----------Update Trainer Info-------------->
-<p>
-    Need to change some information about your trainer?
-<form action="php/updateTrainer.php"> <input type="submit" name="update" value="Update Trainer"</input></form>                                                                                          </p>
-</p>
-
 	<!--------------Section for non-trainer addition-------------->
 	<h3 style="color:#FF0000" > Not a trainer? </h3>
 	
 	<!-------Adding a new pokemon to the system------->
-	<form method="post" action="php/addPokemon.php">
+    <form method="post" action="php/addPokemon.php">
 		<fieldset>
 			<legend>You found a Pokemon? </legend>
 			<p>Name: <input type="text" name="Name" /></p>
