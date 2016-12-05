@@ -28,7 +28,7 @@
     if(!$stmt->execute()){
         echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
     } else {
-        echo $stmt->affected_rows . " trainer has been added";
+        echo "Trainer " . htmlspecialchars($_POST['Name']) . " has been added to the database ";
     }
     $strainer = $mysqli->insert_id;
 
@@ -41,9 +41,38 @@
     if(!$stmt->execute()){
         echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
     } else {
-        echo " and " . $stmt->affected_rows . " added to gym.";
+        echo " and has been located at " . $stmt->affected_rows . " gym.";
     }
 ?>
+
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Number of Badges</td>
+        <td>Pokemon Encountered</td>
+        <td>Region</td>
+        <td>Location</td>
+    </tr>
+    <?php
+    if(!($stmt = $mysqli->prepare("SELECT trainers.fname,trainers.badges,trainers.pokedex,regions.name,gyms.name  FROM regions INNER JOIN trainers ON trainers.region_id = regions.region_id INNER JOIN gym_trainer ON gym_trainer.trainer_id = trainers.trainer_id INNER JOIN gyms ON  gym_trainer.gym_id = gyms.gym_id WHERE trainers.trainer_id = ?"))){
+        echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+    }
+    if(!($stmt->bind_param("i",$strainer))){
+        echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+    }
+    if(!$stmt->execute()){
+        echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+    }
+    if(!$stmt->bind_result($nFirst, $nBadge, $nPoke, $nRegion, $nLocate)){
+        echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+    }
+    while($stmt->fetch()){
+        echo "<tr>\n<td>\n" . $nFirst . "\n</td>\n<td>\n" . $nBadge . "\n</td>\n<td>\n" . $nPoke . "\n</td>\n<td>\n" . $nRegion . "\n</td>\n<td>\n" . $nLocate . "\n</td>\n</tr>";
+    }
+    $stmt->close();
+    ?>
+</table>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
