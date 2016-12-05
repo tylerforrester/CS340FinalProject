@@ -208,8 +208,8 @@
 		<!-------Check the number of people at Gym------->
 		<form method="post" action="php/filterGym1.php">
 			<fieldset>
-				<legend>Want to stay away from busy Gyms?</legend>
-				<p><input type="number" min="1" name="Pokedex" /> is too many people. </p>
+				<legend>Want to find a gym with the most competition? </legend>
+				<p><input type="number" min="0" name="Count" /> sound like a good number. </p>
 				<input type="submit" value="Check"/>
 			</fieldset>
 		</form>
