@@ -101,6 +101,32 @@
 					<input type="submit" name="update" value="Update Trainer"</input>
 				</fieldset>
 			</form>
+		<!-------Find a Trainer based on Trainer or Pokemon Info------->
+		<h3 style="color:#FF0000" > Looking for a Trainer to battle? </h3>
+		<form method="post" action="php/filterTrainer1.php">
+			<fieldset>
+				<legend>Enter the information to search. </legend>
+				<p>Pokemon Type to battle against: <input type="text" name="Type" /></p>
+				<p>In the: <select name="Region">
+						<?php
+						if(!($stmt = $mysqli->prepare("SELECT region_id, name FROM regions"))){
+							echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+						}
+						if(!$stmt->execute()){
+							echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+						}
+						if(!$stmt->bind_result($region_id, $name)){
+							echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+						}
+						while($stmt->fetch()){
+							echo '<option value=" '. $region_id . ' "> ' . $name . '</option>\n';
+						}
+						$stmt->close();
+						?>
+					</select> Region. <p>
+					<input type="submit" value="Find"/></p>
+			</fieldset>
+		</form>
 			<!--------------Section for non-trainer addition-------------->
 			<h3 style="color:#FF0000"> Not a trainer? </h3>
 
@@ -179,6 +205,14 @@
 				<input type="submit"/>
 				</fieldset>
 			</form>
+		<!-------Check the number of people at Gym------->
+		<form method="post" action="php/filterGym1.php">
+			<fieldset>
+				<legend>Want to stay away from busy Gyms?</legend>
+				<p><input type="number" min="1" name="Pokedex" /> is too many people. </p>
+				<input type="submit" value="Check"/>
+			</fieldset>
+		</form>
 
 			<!-------Rename your Gym------->
 		<form method="get" action="php/updateGymName2.php">
