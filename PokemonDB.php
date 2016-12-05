@@ -181,7 +181,7 @@
 			<!-------Create a New Gym------->
 			<form method="post" action="php/addGym.php">
 				<fieldset>
-					<legend>Hipster place to battle other trainers? You're say I probably never heard of it before?</legend>
+					<legend>Hipster place to battle other trainers? You're saying I probably never heard of it before?</legend>
 					<p>Name: <input type="text" name="Name" /></p>
 					<p>Badge: <input type="number" min="1" max="8" name="Badges" /></p>
 					<p>Type: <input type="text" name="Types" /></p>

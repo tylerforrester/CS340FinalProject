@@ -43,10 +43,10 @@
 <body>
 <table>
 	<tr>
-		<td>Name</td>
-		<td>Badge Number</td>
-		<td>Type</td>
-		<td>Region</td>
+		<th>Name</th>
+		<th>Badge Number</th>
+		<th>Type</th>
+		<th>Region</th>
 	</tr>
 	<?php
 	if(!($stmt = $mysqli->prepare("SELECT gyms.name,gyms.badges,gyms.pokeType,regions.name FROM gyms INNER JOIN regions ON regions.region_id = gyms.r_id WHERE gyms.gym_id = ?"))){

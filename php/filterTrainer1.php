@@ -26,12 +26,12 @@ if(!$mysqli || $mysqli->connect_errno){
 
 <table>
     <tr>
-        <td>Trainer Name</td>
-        <td>Location</td>
-        <td>Pokemon Species</td>
-        <td>Type</td>
-        <td>Pokemon Name</td>
-        <td>Region</td>
+        <th>Trainer Name</th>
+        <th>Location</th>
+        <th>Pokemon Species</th>
+        <th>Type</th>
+        <th>Pokemon Name</th>
+        <th>Region</th>
     </tr>
     <?php
     if(!($stmt = $mysqli->prepare("SELECT fname as Trainer, gyms.name, pokemons.species AS Species, pokemons.type, pokemons.name AS Pokemon, regions.name AS Region  from trainers INNER JOIN gym_trainer ON trainers.trainer_id = gym_trainer.trainer_id INNER JOIN gyms ON gym_trainer.gym_id = gyms.gym_id

@@ -54,13 +54,13 @@
 	<body>
 		<table>
 			<tr>
-				<td>Name</td>
-				<td>Species</td>
-				<td>Evolution</td>
-				<td>Exp</td>
-				<td>Type</td>
-				<td>Region</td>
-				<td>Trainer</td>
+				<th>Name</th>
+				<th>Species</th>
+				<th>Evolution</th>
+				<th>Exp</th>
+				<th>Type</th>
+				<th>Region</th>
+				<th>Trainer</th>
 			</tr>
 			<?php
 			if(!($stmt = $mysqli->prepare("SELECT pokemons.name,pokemons.species,pokemons.evolution,pokemons.experience,pokemons.type,regions.name,trainers.fname FROM regions INNER JOIN regions_pokemons ON regions.region_id=regions_pokemons.region_id INNER JOIN pokemons ON regions_pokemons.poke_id=pokemons.poke_id INNER JOIN trainers ON pokemons.trainer_id = trainers.trainer_id WHERE pokemons.poke_id = ?"))){

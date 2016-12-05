@@ -26,11 +26,11 @@ if(!$mysqli || $mysqli->connect_errno){
 
 <table>
     <tr>
-        <td>Gym Badge</td>
-        <td>Type</td>
-        <td>Difficulty</td>
-        <td>Trainer Count</td>
-        <td>Region</td>
+        <th>Gym Badge</th>
+        <th>Type</th>
+        <th>Difficulty</th>
+        <th>Trainer Count</th>
+        <th>Region</th>
     </tr>
     <?php
     if(!($stmt = $mysqli->prepare("SELECT gyms.name, gyms.pokeType,gyms.badges, members.counted, regions.name FROM regions INNER JOIN gyms ON regions.region_id=gyms. r_id INNER JOIN (SELECT gyms.gym_id AS gym, COUNT(trainers.trainer_id) AS counted FROM gyms INNER JOIN gym_trainer ON gyms.gym_id = gym_trainer.gym_id INNER JOIN trainers ON gym_trainer.trainer_id = trainers.trainer_id GROUP BY gyms.gym_id ORDER BY counted) AS members ON gyms.gym_id = members.gym WHERE members.counted > ?"))){

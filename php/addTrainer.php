@@ -52,11 +52,11 @@
 
         <table>
             <tr>
-                <td>Name</td>
-                <td>Number of Badges</td>
-                <td>Pokemon Encountered</td>
-                <td>Region</td>
-                <td>Location</td>
+                <th>Name</th>
+                <th>Number of Badges</th>
+                <th>Pokemon Encountered</th>
+                <th>Region</th>
+                <th>Location</th>
             </tr>
             <?php
             if(!($stmt = $mysqli->prepare("SELECT trainers.fname,trainers.badges,trainers.pokedex,regions.name,gyms.name  FROM regions INNER JOIN trainers ON trainers.region_id = regions.region_id INNER JOIN gym_trainer ON gym_trainer.trainer_id = trainers.trainer_id INNER JOIN gyms ON  gym_trainer.gym_id = gyms.gym_id WHERE trainers.trainer_id = ?"))){
