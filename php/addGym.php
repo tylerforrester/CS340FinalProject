@@ -31,8 +31,46 @@
 	} else {
 		echo " " . $stmt->affected_rows . " gym was created.";
 	}
+
+	$newGym = $mysqli->insert_id;
+
 ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<link rel="stylesheet" type="text/css" href="../css/tables.css">
+<body>
+<table>
+	<tr>
+		<td>Name</td>
+		<td>Badge Number</td>
+		<td>Type</td>
+		<td>Region</td>
+	</tr>
+	<?php
+	if(!($stmt = $mysqli->prepare("SELECT gyms.name,gyms.badges,gyms.pokeType,regions.name FROM gyms INNER JOIN regions ON regions.region_id = gyms.r_id WHERE gyms.gym_id = ?"))){
+		echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+	}
+	if(!($stmt->bind_param("i",$newGym))){
+		echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+	}
+	if(!$stmt->execute()){
+		echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+	}
+	if(!$stmt->bind_result($gName, $gBadge, $gType, $gRegion)){
+		echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+	}
+	while($stmt->fetch()){
+		echo "<tr>\n<td>\n" . $gName . "\n</td>\n<td>\n" . $gBadge . "\n</td>\n<td>\n" . $gType . "\n</td>\n<td>\n" . $gRegion . "\n</td>\n</tr>";
+	}
+	$stmt->close();
+	?>
+</table>
+
 <!--Take us back to the main page-->
 <form action="../PokemonDB.php">
-    <input type="submit" value="Return to Main Menu" />
+	<input type="submit" value="Return to Main Menu" />
 </form>
+</body>
+</html>

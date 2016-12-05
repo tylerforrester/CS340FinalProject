@@ -36,7 +36,7 @@
 	if(!$stmt->execute()){
 		echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 	} else {
-		echo "Added " . $stmt->affected_rows . " rows to region.";
+		echo htmlspecialchars($_POST['Name']). " Region added to the International Trainer Consortium.";
 	}
 ?>
 <!--Take us back to the main page-->
